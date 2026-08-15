@@ -315,6 +315,36 @@ on idle cash), maxDD 27% of capital. **SPY wins raw return decisively** — B is
 income sleeve, not an equity substitute; never present it as beating buy-and-hold.
 Chart: `chart4_spy_vs_calm.png`; SPY series `spy_adjclose_2012_2026.csv`.
 
+## NDX/RUT cross-index replication (2026-08-15) — the decision gate
+
+Frozen rules, zero per-index tuning (`ndxrut_replicate.py`, `trades_replication_{ndx,rut}.csv`,
+`ndxrut_quotes.sqlite`, 5,542 quotes, 0 failed pulls). Same level convention; strikes snapped
+to each expiration's listed chain; implied digital from adjacent listed strikes; PM-settled
+roots preferred (NDXP 2018+/RUTW 2016+, base roots for earlier weeklies); third-Friday
+AM-settled weeks skipped (NDX 153 / RUT 147 skips). Honest fills, hold to settle.
+
+| PF (backfill / modern) | NDX | RUT |
+|---|---|---|
+| hold −1.0/−1.618 | 0.97 / 2.79 (+$194,310) | 0.66 / 2.10 (+$24,829) |
+| B: calm filter | **1.41 / 7.61** (+$2,447 / +$47,501) | 0.50 / 1.02 (≈$0) |
+| ladder (calm+mild) | **2.06 / 8.75** (+$8,662 / +$81,812) | 0.35 / 1.91 |
+
+- **NDX: clean transfer.** Same signature as SPX (flat-to-dead pre-2020, strong after), and
+  the calm filter + ladder rescue the backfill era on an index they were never fitted to —
+  the mild-tier finding replicates. Dollar figures are ~4-5× SPX per lot (index scale);
+  PF is the comparable number. NDX maxDD large on unfiltered hold ($33-40k/lot) — filters
+  cut it to $5-10k.
+- **RUT: the filter does not transfer.** Modern-era raw structure works (hold PF 2.10) but
+  the calm filter removes the profitable weeks (modern PF 1.02) and everything is negative
+  pre-2020. The implied-digital gauge appears unreliable on RUT (wider relative spreads /
+  coarser adjacent-strike digitals on a ~2,000 index), or small-cap put flow simply differs.
+- Read: the edge and its calm-week conditioning are a **large-cap index phenomenon**
+  (SPX + NDX), not universal premium selling. Partial confirmation — better than
+  SPX-only, not a clean sweep. Modern NDX PF 7.61/8.75 rest on 1-2 losers; the meaningful
+  replication signal is the backfill flipping positive (PF 1.41/2.06) out-of-family.
+- Per the Codex gate: transfer is mixed → B advances to paper/probe on SPX (NDX optional
+  second sleeve); RUT is out. Deploy decision Pedro's.
+
 ## Next
 
 - Monthly variant (same pipeline, monthly ATR levels + monthly expirations) — queued.
