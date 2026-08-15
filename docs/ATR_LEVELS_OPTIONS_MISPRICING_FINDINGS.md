@@ -288,6 +288,33 @@ on current numbers; B (calm filter) is clean and can paper immediately.** Key fi
   publishing another statistic. Splice itself verified clean.
 - Thread preview marked HOLD (banner) — posts 10-12 stale pending rerun.
 
+## Ladder candidate (2026-08-15): calm / mildly-hot / very-hot tiers
+
+Pedro's question: instead of skipping elevated-implied weeks, step the short strike down.
+Tested with existing data (`sim_ladder.py`, no new pulls):
+
+- Naive version (all hot weeks → short −1.236/wing −1.786) FAILS pre-2020: PF 0.68,
+  −$10,396 — worse than the −1.0 structure in the same weeks (PF 0.78). Stale-ATR weeks
+  mismeasure every strike equally; crash onsets outrun any reachable strike.
+- **Graded version works in both eras**: implied < trailing 52wk median → sell −1.0/−1.618;
+  median → 75th pct → sell −1.236/−1.786; > 75th pct → sit out.
+  Mildly-hot tier: backfill PF 1.54 (+$2,072, DD $2,090), modern PF 7.96 (98.9% win of 87,
+  +$15,028). Roughly doubles strategy B's dollars (~$33k vs $15.7k over 14 yrs).
+- **Bias acknowledgment**: this is the Nth look at the same 14 years; the p75 boundary was
+  chosen after seeing the split, and the modern mild-hot cell has 1 loser in 87 trades.
+  Frozen as "ladder v1" (median + p75, one step, no further knobs); judged by NDX/RUT
+  replication and forward tracking, not by more variants on this dataset.
+
+## SPY benchmark (2026-08-15): equal capital, honest framing
+
+Buy-and-hold SPY (dividends incl.) vs strategy B from the first calm trade (2013-04-05).
+Capital = largest single-trade risk ($14,955, the only implementable equal-capital basis —
+capital = first-trade risk of $1,940 goes negative at the 2018 trough, DD 210%).
+SPY: 6.27x, 14.7%/yr CAGR, −33.7% maxDD. Strategy B: 2.05x, 5.5%/yr (≈6.6% with T-bills
+on idle cash), maxDD 27% of capital. **SPY wins raw return decisively** — B is a low-beta
+income sleeve, not an equity substitute; never present it as beating buy-and-hold.
+Chart: `chart4_spy_vs_calm.png`; SPY series `spy_adjclose_2012_2026.csv`.
+
 ## Next
 
 - Monthly variant (same pipeline, monthly ATR levels + monthly expirations) — queued.
